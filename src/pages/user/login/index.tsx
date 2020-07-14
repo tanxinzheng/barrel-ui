@@ -59,7 +59,6 @@ const Login: React.FC<{}> = () => {
     try {
       // 登录
       const msg = await fakeAccountLogin({ ...values, type });
-      console.log(msg)
       if (msg.success) {
         message.success('登录成功！');
         localStorage.setItem("x-auth-token", msg.data.accessToken);
