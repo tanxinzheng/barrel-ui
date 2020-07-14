@@ -90,6 +90,8 @@ const codeMessage = {
  */
 const errorHandler = (error: { response: Response }) => {
   const { response } = error;
+  const json = response.json();
+  console.log(json);
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
