@@ -44,20 +44,8 @@ jobs:
           port: ${{ secrets.ALIYUN_ECS_PORT }}
           username: ${{ secrets.ALIYUN_ECS_USER }}
           key: ${{ secrets.ALIYUN_PRI_KEY }}
-          # bash -l /home/admin/deploy-website.sh
           script: |
-            sudo unzip deploy/dist.zip
-            sudo mv deploy/dist deploy/www
-            sudo mv deploy/www /usr/share/nginx/www.new
-            # bakup old version
-            echo "....bakup old version...."
-            sudo mv /usr/share/nginx/www /usr/share/nginx/www.old
-            echo "....start new version...."
-            sudo mv /usr/share/nginx/www.new /usr/share/nginx/www
-
-            echo "Restart Nginx Service Start...."
-            sudo systemctl restart nginx
-            echo "Restart Nginx Service End...."
+            bash -l /home/admin/deploy-website.sh
 
 
 
