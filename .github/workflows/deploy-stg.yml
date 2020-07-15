@@ -9,6 +9,34 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          version: ${{ matrix.node_version }}
+
+      - name: Build Website
+        run: |
+          npm -v
+          node -v
+          npm install -g yarn
+          yarn -v
+          
+          #npm config set registry https://registry.npm.taobao.org
+          #yarn && npm uninstall husky && yarn add umi-plugin-setting-drawer umi-plugin-antd-theme umi-plugin-pro  && yarn run pro fetch-blocks && npm run site && git checkout . && git clean -df
+          
+          yarn && yarn build
+          zip -r ./dist.zip ./dist
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.ALIYUN_ECS_HOST }}
+          username: ${{ secrets.ALIYUN_ECS_USER }}
+          key: ${{ secrets.ALIYUN_PRI_KEY }}
+          port: ${{ secrets.ALIYUN_ECS_PORT }}
+          source: "./dist.zip"
+          target: "deploy"
+
       - name: Deploy Website
         uses: appleboy/ssh-action@master
         with:

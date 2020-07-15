@@ -10,9 +10,10 @@ cd barrel-ui
 npm -v 
 node -v
 yarn -v
+npm config set registry https://registry.npm.taobao.org
 #yarn && npm uninstall husky && yarn add umi-plugin-setting-drawer umi-plugin-antd-theme umi-plugin-pro  && yarn run pro fetch-blocks && npm run site && git checkout . && git clean -df
-npm install
-npm run site
+
+yarn && yarn build
 
 sudo mv dist /usr/share/nginx/www.new
 # bakup old version
